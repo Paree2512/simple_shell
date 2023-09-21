@@ -4,9 +4,11 @@
  * handle_cmd – Execute a command with arguments in a child process.
  * @cmd_args: The command with its arguments
  *
- * This function forks a child process to execute the given command along with
- * its arguments using the execve system call. It handles errors related to
- * forking, executing the command, and accessing the command's executable file.
+ * Description - This function executes a specified command
+ * with its arguments in a child process using execve.
+ * It handles errors during forking, command execution,
+ * and file access, ensuring the command runs smoothly
+ * in a child process while addressing potential issues
  *
  * Return: 0 on success, -1 on failure
  */
