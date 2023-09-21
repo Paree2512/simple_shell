@@ -14,12 +14,14 @@
 /* Function prototypes */
 
 extern char **environ;
+
 #define MAX_INPUT_LEN 1024
 
 /* Function prototypes */
 
 void sh_print(const char *my_string);
 int main(void);
+void prompt(void);
 char *_strdup(const char *str);
 char *_strcat(char *dest, const char *src);
 int _strcmp(char *str1, char *str2);
@@ -33,8 +35,8 @@ int _strncmp(const char *str1, const char *str2, size_t num);
 char *get_environ(const char *env_var);
 int handle_cmd(char *cmd_args);
 void child_process_cmd(char *cmd, char *args[]);
-void prompt(void);
+void process_cmd(char *input);
 void print_env(void);
-
+void change_dir(char *path);
 
 #endif /* SHELL_H */

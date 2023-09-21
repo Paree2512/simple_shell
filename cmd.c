@@ -82,3 +82,42 @@ void child_process_cmd(char *cmd, char *args[])
 		_exit(EXIT_FAILURE);
 	}
 }
+
+/**
+ * process_cmd - process user commands
+ * @input: user input command
+ *
+ * This function processes the user input command and takes appropriate actions
+ * based on the command, such as "exit," "env," "cd,"
+ */
+
+void process_cmd(char *input)
+{
+	char *path;
+	int result;
+
+	if (_strncmp(input, "exit", 4) == 0)
+	{
+		free(input);
+		input = NULL;
+		exit(EXIT_SUCCESS);
+	}
+
+	if (_strcmp(trimString(input), "env") == 0)
+	{
+		print_env();
+		return;
+	}
+
+	if (_strncmp(input, "cd", 2) == 0)
+	{
+		path = trimString(input + 2);
+		change_dir(path);
+		return;
+	}
+
+	result = handle_cmd(trimString(input));
+
+	if (result == -1)
+		exit(EXIT_FAILURE);
+}
