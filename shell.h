@@ -13,15 +13,28 @@
 
 /* Function prototypes */
 
-int main(int argc, char **argv, char **env);
+extern char **environ;
+#define MAX_INPUT_LEN 1024
+
+/* Function prototypes */
+
 void sh_print(const char *my_string);
-void print_env(char **env);
-char *read_string(void);
-char **splits_input(char *input);
-int find_path(char **args, char **env);
-char **path_dir(char **env);
-void handle_cmd(char **args, char **env);
-void handle_builtin(char **args, char **env);
-void change_dir(char **args);
+int main(void);
+char *_strdup(const char *str);
+char *_strcat(char *dest, const char *src);
+int _strcmp(char *str1, char *str2);
+size_t _strlen(const char * strng);
+size_t _strlen_const(const char * strng);
+char *trimString(char *str);
+char *find_path(char *cmd);
+char *_strcpy(char *dest, const char *src);
+char *_strncpy(char *dest, const char *src, int sz);
+int _strncmp(const char *str1, const char *str2, size_t num);
+char *get_environ(const char *env_var);
+int handle_cmd(char *cmd_args);
+void child_process_cmd(char *cmd, char *args[]);
+void prompt(void);
+void print_env(void);
+
 
 #endif /* SHELL_H */

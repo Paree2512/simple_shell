@@ -1,45 +1,51 @@
 #include "shell.h"
 
 /**
- * main - program entry point
- * @argc: number of command-line arguments
- * @argv: array of command-line argument strings
- * @env: array of environment variables
+ * main - shell entry point
  *
- * Return: Always 0
+ * Return: Always 0.
  */
 
-int main(int argc, char **argv, char **env)
+int main(void)
 {
-	char *input;
-	char **args;
-
-	(void)argc;
-	(void)argv;
+	char *input = NULL;
+	size_t input_size = 0;
+	ssize_t read_size;
+	int result;
 
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
-		{
-			sh_print("ALX_SimpleShell$> ");
-			fflush(stdout);
-		}
-
-		input = read_string();
-		args = splits_input(input);
-
-		if (args[0] == NULL)
+		prompt();
+		read_size = getline(&input, &input_size, stdin);
+		if (read_size == -1)
 		{
 			free(input);
-			free(args);
+			return (0);
+		}
+		if (input[read_size - 1] == '\n')
+			input[read_size - 1] = '\0';
+
+		if (_strncmp(input, "exit", 4) == 0)
+		{
+			free(input);
+			input = NULL;
+			input_size = 0;
+			exit(EXIT_SUCCESS);
+		}
+
+		if (_strcmp(trimString(input), "env") == 0)
+		{
+			print_env();
 			continue;
 		}
 
-		handle_builtin(args, env);
-
-		free(input);
-		free(args);
+		if (read_size > 1)
+		{
+			result = handle_cmd(trimString(input));
+			if (result == -1)
+				break;
+		}
 	}
-
+	free(input);
 	return (0);
 }

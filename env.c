@@ -1,20 +1,19 @@
 #include "shell.h"
 
 /**
- * print_env - prints environment variables to std output
- * @env: array of environment variables
+ * print_env - print environment variables
  *
- * Return: None
+ * Return: Nothing
  */
 
-void print_env(char **env)
+void print_env(void)
 {
-	int i = 0;
+	int i;
+	char **env = environ;
 
-	while (env[i] != NULL)
+	for (i = 0; env[i]; i++)
 	{
 		sh_print(env[i]);
 		sh_print("\n");
-		i++;
 	}
 }
